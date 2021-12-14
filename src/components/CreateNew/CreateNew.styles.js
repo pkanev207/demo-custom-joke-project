@@ -23,7 +23,7 @@ export const Title = styled.h3`
   text-align: center;
   color: var(--white);
   margin-top: 0.3rem;
-  padding-top: 0.9rem
+  padding-top: 0.9rem;
 `;
 
 export const Form = styled.form`

@@ -51,7 +51,7 @@ const sharedInputStyles = `
   opacity: 0.7;
 `;
 
-export const Input = styled.input`
+export const Input = styled.textarea`
   ${sharedInputStyles};
   outline: none;
 `;
