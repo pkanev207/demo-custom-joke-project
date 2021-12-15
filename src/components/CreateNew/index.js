@@ -101,7 +101,8 @@ const CreateNew = () => {
           <Input
             type="text"
             name="setup"
-            placeholder="Setup..."
+            required
+            placeholder="Setup(required)..."
             {...register("setup")}
           />
           <ErrorMessage>{errors.setup?.message}</ErrorMessage>

@@ -1,6 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 // Context
 import { JokeContext } from "../../contexts/JokeContext";
+// Routing
+import { useNavigate } from "react-router-dom";
+// Firebase
+import { updateDoc, doc } from "firebase/firestore";
+import { db } from "../../firebase-config";
 // Components
 import Spinner from "../Spinner";
 // Styles
@@ -16,20 +21,28 @@ import {
 } from "./Edit.styles.js";
 
 const Edit = () => {
-  const [loading, setLoading] = useState(false);
-
+  let navigate = useNavigate();
+  const [setup, setSetup] = useState("");
+  const [delivery, setDelivery] = useState("");
+  const [category, setCategory] = useState("");
+  // const [loading, setLoading] = useState(false);
+  // const [errMessage, setErrMessage] = useState("");
   const { failedJoke } = useContext(JokeContext);
   console.log(failedJoke);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const newJoke = { ...failedJoke };
+    if (setup) newJoke.setup = setup;
+    if (delivery) newJoke.delivery = delivery;
+    if (category) newJoke.category = category;
+    await updateDoc(doc(db, "jokes", failedJoke.id), newJoke);
+    navigate("/collection");
   };
 
   return (
     <>
-      {loading && <Spinner />}
-      <div>From the Edit!</div>
+      {/* {loading && <Spinner />} */}
       <Wrapper>
         <Content>
           <Title>Edit your joke!</Title>
@@ -40,15 +53,27 @@ const Edit = () => {
               name="setup"
               required
               defaultValue={failedJoke.setup}
+              onChange={(event) => {
+                setSetup(event.target.value);
+              }}
             />
             <Label>Delivery:</Label>
             <Input
               type="text"
               name="delivery"
               defaultValue={failedJoke.delivery}
+              onChange={(event) => {
+                setDelivery(event.target.value);
+              }}
             />
             <Label>Category:</Label>
-            <Select id="category" name="category">
+            <Select
+              id="category"
+              name="category"
+              onChange={(event) => {
+                setCategory(event.target.value);
+              }}
+            >
               <option value="Programming">Programming</option>
               <option value="Misc">Misc</option>
               <option value="Dark">Dark</option>

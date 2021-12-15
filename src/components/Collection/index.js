@@ -4,7 +4,7 @@ import { JokeContext } from "../../contexts/JokeContext";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Firebase
-import { collection, getDocs } from "@firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "@firebase/firestore";
 import { db } from "../../firebase-config";
 // Components
 import Joke from "../Joke";
@@ -18,28 +18,33 @@ const Collection = () => {
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(false);
-  const jokesCollectionRef = collection(db, "jokes");
 
   useEffect(() => {
     const getJokes = async () => {
       setLoading(true);
-      const data = await getDocs(jokesCollectionRef);
-      // console.log(data.docs);
-      const mappedData = data.docs.map((doc) => doc.data());
+      const data = await getDocs(collection(db, "jokes"));
+      const mappedData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
       await setJokes(mappedData);
       setLoading(false);
     };
 
     getJokes();
   }, []);
-  // console.log(jokes);
-  // console.log(jokes[0]);
-  // console.log(jokes[0]?.jokeId);
 
   const editJoke = (data) => {
-    // console.log("Form the editJoke!:", data);
     setFailedJoke(data);
     navigate("/edit");
+  };
+
+  const deleteJoke = async (data) => {
+    console.log(data);
+    if (window.confirm("You should think twice!")) {
+      await deleteDoc(doc(db, "jokes", data.id));
+      window.location.reload();
+    }
   };
 
   return (
@@ -59,7 +64,10 @@ const Collection = () => {
           <>
             <Joke key={joke?.jokeId} data={joke} />
             {/* <Joke key={uuidv4()} data={joke} /> */}
-            <Button text={"Edit"} callback={() => editJoke(joke)} />
+            <div style={{ width: "50%", display: "flex" }}>
+              <Button text={"Edit"} callback={() => editJoke(joke)} />
+              <Button text={"Delete"} callback={() => deleteJoke(joke)} />
+            </div>
           </>
         );
       })}
