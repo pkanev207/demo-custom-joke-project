@@ -4,7 +4,7 @@ import { JokeContext } from "../../contexts/JokeContext";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Firebase
-import { collection, getDocs } from "@firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "@firebase/firestore";
 import { db } from "../../firebase-config";
 // Components
 import Joke from "../Joke";
@@ -18,30 +18,33 @@ const Collection = () => {
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(false);
-  // const jokesCollectionRef = collection(db, "jokes");
 
   useEffect(() => {
     const getJokes = async () => {
       setLoading(true);
       const data = await getDocs(collection(db, "jokes"));
-      // console.log(data.docs);
-      const mappedData = data.docs.map((doc) => doc.data());
+      const mappedData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
       await setJokes(mappedData);
       setLoading(false);
     };
 
     getJokes();
   }, []);
-  // console.log(jokes);
 
   const editJoke = (data) => {
     setFailedJoke(data);
     navigate("/edit");
   };
 
-  const deleteJoke = (data) => {
-    console.log("You should think twice!");
+  const deleteJoke = async (data) => {
     console.log(data);
+    if (window.confirm("You should think twice!")) {
+      await deleteDoc(doc(db, "jokes", data.id));
+      window.location.reload();
+    }
   };
 
   return (
