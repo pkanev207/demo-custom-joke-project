@@ -18,12 +18,12 @@ const Collection = () => {
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState(false);
-  const jokesCollectionRef = collection(db, "jokes");
+  // const jokesCollectionRef = collection(db, "jokes");
 
   useEffect(() => {
     const getJokes = async () => {
       setLoading(true);
-      const data = await getDocs(jokesCollectionRef);
+      const data = await getDocs(collection(db, "jokes"));
       // console.log(data.docs);
       const mappedData = data.docs.map((doc) => doc.data());
       await setJokes(mappedData);
@@ -33,13 +33,15 @@ const Collection = () => {
     getJokes();
   }, []);
   // console.log(jokes);
-  // console.log(jokes[0]);
-  // console.log(jokes[0]?.jokeId);
 
   const editJoke = (data) => {
-    // console.log("Form the editJoke!:", data);
     setFailedJoke(data);
     navigate("/edit");
+  };
+
+  const deleteJoke = (data) => {
+    console.log("You should think twice!");
+    console.log(data);
   };
 
   return (
@@ -59,7 +61,10 @@ const Collection = () => {
           <>
             <Joke key={joke?.jokeId} data={joke} />
             {/* <Joke key={uuidv4()} data={joke} /> */}
-            <Button text={"Edit"} callback={() => editJoke(joke)} />
+            <div style={{ width: "50%", display: "flex" }}>
+              <Button text={"Edit"} callback={() => editJoke(joke)} />
+              <Button text={"Delete"} callback={() => deleteJoke(joke)} />
+            </div>
           </>
         );
       })}

@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 // Context
 import { JokeContext } from "../../contexts/JokeContext";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Firebase
-import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 // Components
 import Spinner from "../Spinner";
@@ -22,39 +22,21 @@ import {
 
 const Edit = () => {
   let navigate = useNavigate();
-  const [allJokes, setAllJokes] = useState([]);
   const [setup, setSetup] = useState("");
   const [delivery, setDelivery] = useState("");
   const [category, setCategory] = useState("");
   // const [loading, setLoading] = useState(false);
   // const [errMessage, setErrMessage] = useState("");
   const { failedJoke } = useContext(JokeContext);
-  // console.log(failedJoke);
-
-  useEffect(() => {
-    const getJokes = async () => {
-      const data = await getDocs(collection(db, "jokes"));
-      console.log(data);
-      setAllJokes(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-
-    getJokes();
-  }, []);
+  console.log(failedJoke);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(allJokes);
-    const jokeInQuestion = allJokes.filter(
-      (joke) => joke.jokeId === failedJoke.jokeId
-    )[0];
-    // console.log(jokeInQuestion);
-    const newJoke = { ...jokeInQuestion };
+    const newJoke = { ...failedJoke };
     if (setup) newJoke.setup = setup;
     if (delivery) newJoke.delivery = delivery;
     if (category) newJoke.category = category;
-    // console.log(newJoke);
-    // console.log(doc(db, "jokes", jokeInQuestion.id));
-    await updateDoc(doc(db, "jokes", jokeInQuestion.id), newJoke);
+    await updateDoc(doc(db, "jokes", failedJoke.id), newJoke);
     navigate("/collection");
   };
 
