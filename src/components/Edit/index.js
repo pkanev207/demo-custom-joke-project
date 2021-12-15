@@ -43,7 +43,6 @@ const Edit = () => {
   return (
     <>
       {/* {loading && <Spinner />} */}
-      <div>From the Edit!</div>
       <Wrapper>
         <Content>
           <Title>Edit your joke!</Title>
