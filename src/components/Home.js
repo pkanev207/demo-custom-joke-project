@@ -38,10 +38,7 @@ const Image = styled.div`
 
 const Home = () => {
   let navigate = useNavigate();
-  // const { user } = useContext(AuthContext);
-  // console.log(user);
-  // console.log(user.email);
-
+  const { loggedUser } = useContext(AuthContext);
   const [user, setUser] = useState({});
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -77,11 +74,9 @@ const Home = () => {
         >
           Home is where everything begins.
         </div>
-
+        <Image />
         {user.email ? (
           <>
-            <div style={{ marginTop: 10 }}>HERE GOES THE IMAGE</div>
-            <Image image={"../images/funny.jpg"}></Image>
             <Button
               text={"Go to personal space"}
               callback={() => navigate("/user")}
@@ -94,15 +89,19 @@ const Home = () => {
           // />
           <Buttons>
             <Button
-              text={"Register"}
-              callback={() => {
-                navigate("/register");
-              }}
+              text={"Check out some jokes"}
+              callback={() => navigate("/jokeboard")}
             />
             <Button
               text={"Log In"}
               callback={() => {
                 navigate("/login");
+              }}
+            />
+            <Button
+              text={"Register"}
+              callback={() => {
+                navigate("/register");
               }}
             />
           </Buttons>

@@ -57,7 +57,7 @@ const Collection = () => {
         gap: "0.5rem",
       }}
     >
-      <h3>Here goes the data from Firebase!</h3>
+      <h3>Here goes your collection!</h3>
       {loading && <Spinner />}
       {jokes.map((joke) => {
         return (

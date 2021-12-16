@@ -10,9 +10,7 @@ import Button from "../Button";
 
 const User = () => {
   let navigate = useNavigate();
-
   // const goToCollection = () => navigate("/collection");
-
   // const goToDashboard = () => navigate("/dashboard");
 
   const logout = () => {
