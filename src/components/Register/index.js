@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // import { useState } from "react";
 import { useForm } from "react-hook-form";
 // Firebase
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase-config";
 // Validators
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -53,7 +53,17 @@ function Register() {
         console.log(userCredential);
         const user = userCredential.user;
         console.log(user);
-        navigate("/");
+        updateProfile(auth.currentUser, {
+          displayName: `${firstName} ${lastName}`,
+          photoURL: "",
+        })
+          .then(() => {
+            // Profile updated!
+            navigate("/");
+          }).catch((err) => {
+            // An error occurred
+            console.log(err);
+          });
         // ...
       })
       .catch((error) => {
@@ -73,8 +83,8 @@ function Register() {
             name="firstName"
             placeholder="First Name..."
             {...register("firstName")}
-            // ref={register}
-            // ref={register("firstName")}
+          // ref={register}
+          // ref={register("firstName")}
           />
           <p>{errors.firstName?.message}</p>
           <input

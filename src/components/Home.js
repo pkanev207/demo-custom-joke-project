@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // Context
 import { AuthContext } from "../contexts/AuthContext";
 // Routing
@@ -40,31 +40,35 @@ const Home = () => {
   let navigate = useNavigate();
   const { loggedUser } = useContext(AuthContext);
   const [user, setUser] = useState({});
+  useEffect(() => {
 
-  onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      // currentUser.id = user.uid;
-      // currentUser.email = user.email;
-      // console.log(user, currentUser.email, currentUser.id);
-      // ...
-      let id = currentUser.uid;
-      let email = currentUser.email;
-      console.log(id, email);
-      setUser(currentUser);
-    } else {
-      // User is signed out
-      // ...
-      console.log("No user");
-      // setUser(null);
-    }
-  });
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        // console.log(currentUser);
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        // currentUser.id = user.uid;
+        // currentUser.email = user.email;
+        // console.log(user, currentUser.email, currentUser.id);
+        // ...
+        let id = currentUser.uid;
+        let email = currentUser.email;
+        let name = currentUser.displayName;
+        console.log(name, id, email);
+        setUser(currentUser);
+      } else {
+        // User is signed out
+        // ...
+        console.log("No user");
+        // setUser(null);
+      }
+    });
+  }, []);
 
   return (
     <>
       <Wrapper>
-        <div
+        <h3
           style={{
             backgroundColor: "tomato",
             color: "white",
@@ -72,8 +76,8 @@ const Home = () => {
             border: "1px solid olivedrab",
           }}
         >
-          Home is where everything begins.
-        </div>
+          {user.displayName ? `Welcome ${user.displayName}` : "Home is where everything begins."}
+        </h3>
         <Image />
         {user.email ? (
           <>

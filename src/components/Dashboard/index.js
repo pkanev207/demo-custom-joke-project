@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+// Context
+import { AuthContext } from "../../contexts/AuthContext";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Firebase
@@ -20,13 +22,17 @@ let url = "https://v2.jokeapi.dev/joke/Any";
 
 const Dashboard = () => {
   let navigate = useNavigate();
+  const { loggedUser } = useContext(AuthContext);
   const { data: joke, loading, error, refetch } = useFetch(url);
 
   if (error) return <FOF />;
 
   const addJoke = async (joke) => {
-    // console.log(joke);
     joke.jokeId = uuidv4();
+    joke.displayName = loggedUser.displayName;
+    joke.uid = loggedUser.uid;
+    joke.email = loggedUser.email;
+    console.log(joke);
     await addDoc(collection(db, "jokes"), joke);
     // window.location.reload();
     navigate("/collection");
