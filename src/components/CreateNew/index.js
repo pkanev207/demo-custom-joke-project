@@ -74,9 +74,9 @@ const CreateNew = () => {
           uid,
           email,
           jokeId,
-          displayName
+          displayName,
         });
-        console.log(jokeData);
+        // console.log(jokeData);
         console.log("Document written with ID: ", jokeData.id);
         navigate("/collection");
       } catch (e) {

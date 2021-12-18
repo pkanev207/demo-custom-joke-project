@@ -41,20 +41,12 @@ const Home = () => {
   const { loggedUser } = useContext(AuthContext);
   const [user, setUser] = useState({});
   useEffect(() => {
-
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         // console.log(currentUser);
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        // currentUser.id = user.uid;
-        // currentUser.email = user.email;
-        // console.log(user, currentUser.email, currentUser.id);
         // ...
-        let id = currentUser.uid;
-        let email = currentUser.email;
-        let name = currentUser.displayName;
-        console.log(name, id, email);
         setUser(currentUser);
       } else {
         // User is signed out
@@ -76,16 +68,28 @@ const Home = () => {
             border: "1px solid olivedrab",
           }}
         >
-          {user.displayName ? `Welcome ${user.displayName}` : "Home is where everything begins."}
+          {user.displayName
+            ? `Welcome ${user.displayName}`
+            : "Home is where everything begins."}
         </h3>
         <Image />
         {user.email ? (
-          <>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-around",
+            }}
+          >
+            <Button
+              text={"Check out some jokes"}
+              callback={() => navigate("/jokeboard")}
+            />
             <Button
               text={"Go to personal space"}
               callback={() => navigate("/user")}
             />
-          </>
+          </div>
         ) : (
           // <img
           //   src="https://images.unsplash.com/photo-1543791187-df796fa11835?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1399&q=80"
