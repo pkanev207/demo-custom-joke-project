@@ -28,11 +28,14 @@ const Edit = () => {
   // const [loading, setLoading] = useState(false);
   // const [errMessage, setErrMessage] = useState("");
   const { failedJoke } = useContext(JokeContext);
-  console.log(failedJoke);
-
+  // console.log(failedJoke);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newJoke = { ...failedJoke };
+    if (failedJoke.joke) {
+      newJoke.setup = failedJoke.joke;
+      newJoke.joke = null;
+    }
     if (setup) newJoke.setup = setup;
     if (delivery) newJoke.delivery = delivery;
     if (category) newJoke.category = category;
@@ -52,7 +55,9 @@ const Edit = () => {
               type="text"
               name="setup"
               required
-              defaultValue={failedJoke.setup}
+              defaultValue={
+                failedJoke.setup ? failedJoke.setup : failedJoke.joke
+              }
               onChange={(event) => {
                 setSetup(event.target.value);
               }}

@@ -30,8 +30,8 @@ const LogIn = () => {
     console.log(data);
     // here goes the fetch
 
-    let { email, password, confirmPassword } = data;
-    console.log(email, password, confirmPassword);
+    let { email, password } = data;
+    console.log(email, password);
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {

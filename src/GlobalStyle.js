@@ -11,6 +11,7 @@ export const GlobalStyle = createGlobalStyle`
         --medGrey: #353535;
         --darkGrey: #1c1c1c;
         --myGrey: #374151;
+        --naughtyBrown: #501515c9;
         --fontSuperBig: 2.5rem;
         --fontBig: 1.5rem;
         --fontMed: 1.2rem;
@@ -47,6 +48,7 @@ export const GlobalStyle = createGlobalStyle`
         p {
             font-size: 1rem;
             color: var(--white);
+            /* color: var(--darkGrey); */
         }
     }
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 // Context
 import { AuthContext } from "../contexts/AuthContext";
 // Routing
@@ -38,36 +38,29 @@ const Image = styled.div`
 
 const Home = () => {
   let navigate = useNavigate();
-  // const { user } = useContext(AuthContext);
-  // console.log(user);
-  // console.log(user.email);
-
+  const { loggedUser } = useContext(AuthContext);
   const [user, setUser] = useState({});
-
-  onAuthStateChanged(auth, (currentUser) => {
-    if (currentUser) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-      // currentUser.id = user.uid;
-      // currentUser.email = user.email;
-      // console.log(user, currentUser.email, currentUser.id);
-      // ...
-      let id = currentUser.uid;
-      let email = currentUser.email;
-      console.log(id, email);
-      setUser(currentUser);
-    } else {
-      // User is signed out
-      // ...
-      console.log("No user");
-      // setUser(null);
-    }
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        // console.log(currentUser);
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        // ...
+        setUser(currentUser);
+      } else {
+        // User is signed out
+        // ...
+        console.log("No user");
+        // setUser(null);
+      }
+    });
+  }, []);
 
   return (
     <>
       <Wrapper>
-        <div
+        <h3
           style={{
             backgroundColor: "tomato",
             color: "white",
@@ -75,34 +68,44 @@ const Home = () => {
             border: "1px solid olivedrab",
           }}
         >
-          Home is where everything begins.
-        </div>
-
+          {user.displayName
+            ? `Welcome ${user.displayName}`
+            : "Home is where everything begins."}
+        </h3>
+        <Image />
         {user.email ? (
-          <>
-            <div style={{ marginTop: 10 }}>HERE GOES THE IMAGE</div>
-            <Image image={"../images/funny.jpg"}></Image>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "space-around",
+            }}
+          >
+            <Button
+              text={"Check out some jokes"}
+              callback={() => navigate("/jokeboard")}
+            />
             <Button
               text={"Go to personal space"}
               callback={() => navigate("/user")}
             />
-          </>
+          </div>
         ) : (
-          // <img
-          //   src="https://images.unsplash.com/photo-1543791187-df796fa11835?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1399&q=80"
-          //   alt=""
-          // />
           <Buttons>
             <Button
-              text={"Register"}
-              callback={() => {
-                navigate("/register");
-              }}
+              text={"Check out some jokes"}
+              callback={() => navigate("/jokeboard")}
             />
             <Button
               text={"Log In"}
               callback={() => {
                 navigate("/login");
+              }}
+            />
+            <Button
+              text={"Register"}
+              callback={() => {
+                navigate("/register");
               }}
             />
           </Buttons>

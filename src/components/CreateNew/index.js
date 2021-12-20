@@ -46,8 +46,8 @@ const CreateNew = () => {
     // here goes the fetch
     const { setup, delivery, category } = data;
     // console.log(setup, delivery, category);
-    const { uid, email } = loggedUser;
-    // console.log(uid, email);
+    const { uid, email, displayName } = loggedUser;
+    console.log(uid, email, displayName);
     const jokeId = uuidv4();
     // console.log(jokeId);
 
@@ -74,8 +74,9 @@ const CreateNew = () => {
           uid,
           email,
           jokeId,
+          displayName,
         });
-        console.log(jokeData);
+        // console.log(jokeData);
         console.log("Document written with ID: ", jokeData.id);
         navigate("/collection");
       } catch (e) {

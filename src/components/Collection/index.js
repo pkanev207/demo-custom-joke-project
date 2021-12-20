@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 // Context
+import { AuthContext } from "../../contexts/AuthContext";
 import { JokeContext } from "../../contexts/JokeContext";
 // Routing
 import { useNavigate } from "react-router-dom";
@@ -14,6 +15,7 @@ import Spinner from "../Spinner";
 
 const Collection = () => {
   let navigate = useNavigate();
+  const { loggedUser } = useContext(AuthContext);
   const { setFailedJoke } = useContext(JokeContext);
   const [jokes, setJokes] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -57,20 +59,22 @@ const Collection = () => {
         gap: "0.5rem",
       }}
     >
-      <h3>Here goes the data from Firebase!</h3>
+      <h3>Here goes your collection!</h3>
       {loading && <Spinner />}
-      {jokes.map((joke) => {
-        return (
-          <>
-            <Joke key={joke?.jokeId} data={joke} />
-            {/* <Joke key={uuidv4()} data={joke} /> */}
-            <div style={{ width: "50%", display: "flex" }}>
-              <Button text={"Edit"} callback={() => editJoke(joke)} />
-              <Button text={"Delete"} callback={() => deleteJoke(joke)} />
-            </div>
-          </>
-        );
-      })}
+      {jokes
+        .filter((x) => x.uid === loggedUser.uid)
+        .map((joke) => {
+          return (
+            <>
+              <Joke key={joke?.jokeId} data={joke} />
+              {/* <Joke key={uuidv4()} data={joke} /> */}
+              <div style={{ width: "50%", display: "flex" }}>
+                <Button text={"Edit"} callback={() => editJoke(joke)} />
+                <Button text={"Delete"} callback={() => deleteJoke(joke)} />
+              </div>
+            </>
+          );
+        })}
       <Button text={"Go, home"} callback={() => navigate("/user")} />
     </div>
   );

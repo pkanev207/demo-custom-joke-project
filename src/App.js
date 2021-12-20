@@ -14,6 +14,7 @@ import User from "./components/User";
 import About from "./components/About";
 import Register from "./components/Register";
 import LogIn from "./components/LogIn";
+import JokeBoard from "./components/JokeBoard";
 import Dashboard from "./components/Dashboard";
 import Collection from "./components/Collection";
 import CreateNew from "./components/CreateNew";
@@ -60,6 +61,7 @@ const App = () => {
               <Route path="/user" element={<User />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<LogIn />} />
+              <Route path="/jokeboard" element={<JokeBoard />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/collection" element={<Collection />} />
               <Route path="/create" element={<CreateNew />} />
@@ -76,6 +78,3 @@ const App = () => {
 };
 
 export default App;
-
-// test@abv.bg
-// asdasd

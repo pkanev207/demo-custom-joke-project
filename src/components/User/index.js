@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+// Context
+import { AuthContext } from "../../contexts/AuthContext";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Firebase
@@ -10,10 +12,12 @@ import Button from "../Button";
 
 const User = () => {
   let navigate = useNavigate();
-
-  // const goToCollection = () => navigate("/collection");
-
-  // const goToDashboard = () => navigate("/dashboard");
+  const { loggedUser } = useContext(AuthContext);
+  // console.log(loggedUser);
+  let header = "User";
+  if (loggedUser) {
+    header = loggedUser.displayName;
+  }
 
   const logout = () => {
     signOut(auth)
@@ -44,15 +48,18 @@ const User = () => {
 
   return (
     <Wrapper>
-      <h3>User's interface</h3>
-      <div>This is the user!</div>
-      <Button
-        text={"View Collection"}
-        callback={() => navigate("/collection")}
-      />
+      <h3>{`Welcome to your personal fun place ${header}`}</h3>
+      <div>
+        <i>User's interface</i>
+      </div>
       <Button
         text={"Get another one"}
         callback={() => navigate("/dashboard")}
+      />
+      <Button text={"Create own"} callback={() => navigate("/create")} />
+      <Button
+        text={"View Collection"}
+        callback={() => navigate("/collection")}
       />
       <Button text={"Log Out"} callback={logout} />
       <Button text={"Delete account"} callback={closeAccount} />
