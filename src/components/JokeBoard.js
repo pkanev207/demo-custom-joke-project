@@ -1,6 +1,4 @@
 import React from "react";
-// Routing
-import { Navigate } from "react-router-dom";
 // Components
 import Button from "./Button";
 import Joke from "./Joke";
@@ -9,7 +7,38 @@ import styled from "styled-components/macro";
 // API
 let url = "https://v2.jokeapi.dev/joke/Any";
 
-const Buttons = styled.div``;
+const Wrapper = styled.div`
+  width: 90%;
+`;
+
+const Content = styled.div`
+  width: 100%;
+  margin: 2rem;
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+    margin: 0;
+  }
+`;
+
+const Header = styled.h3`
+  flex-grow: 1.5;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.375rem;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.15);
+`;
+
+const Jokes = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-left: 3rem;
+`;
 
 class JokeBoard extends React.Component {
   state = {
@@ -34,7 +63,6 @@ class JokeBoard extends React.Component {
         console.log(result);
         const { id, setup, delivery, joke, category } = result;
         const newJoke = { id, setup, delivery, joke, category };
-        console.log(newJoke);
         // loaded, making error be null since in this .then everything is ok
         this.setState({
           jokes: [newJoke, ...this.state.jokes],
@@ -54,32 +82,40 @@ class JokeBoard extends React.Component {
     const { jokes, isLoaded, error } = this.state;
 
     return (
-      <div>
-        <h3>Jokeboard</h3>
-
-        <Buttons>
+      <Wrapper>
+        <Content>
+          <Header>Welcome to Quick Jokeboard!</Header>
           <Button
             text={isLoaded ? "Give me a joke" : "Loading"}
             callback={this.handleGetJoke.bind(this)}
           />
-          {/* <Button
+        </Content>
+
+        {/* <Buttons>
+          <Button
+            text={isLoaded ? "Give me a joke" : "Loading"}
+            callback={this.handleGetJoke.bind(this)}
+          />
+          <Button
             text={"Log In"}
             callback={() => {
               <Navigate to="/login" />;
             }}
-          /> */}
-          {/* <Button
+          />
+          <Button
             text={"Register"}
             callback={() => {
               navigate("/register");
             }}
-          /> */}
-        </Buttons>
-        {error && <p>Something went terribly wrong, error : {error} </p>}
+          />
+        </Buttons> */}
+        <Jokes>
+          {error && <p>Something went terribly wrong, error : {error} </p>}
 
-        {jokes.length > 0 &&
-          jokes.map((joke) => <Joke key={joke.id} data={joke} />)}
-      </div>
+          {jokes.length > 0 &&
+            jokes.map((joke) => <Joke key={joke.id} data={joke} />)}
+        </Jokes>
+      </Wrapper>
     );
   }
 }

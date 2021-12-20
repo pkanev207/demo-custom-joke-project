@@ -78,6 +78,3 @@ const App = () => {
 };
 
 export default App;
-
-// test@abv.bg
-// asdasd

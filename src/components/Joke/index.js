@@ -1,6 +1,8 @@
 import React from "react";
 // Styles
 import { Wrapper, Speech, Image, Label } from "./Joke.styles";
+// API
+// https://robohash.org
 
 const Joke = ({ data }) => (
   <Wrapper>
