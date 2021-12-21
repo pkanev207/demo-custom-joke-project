@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "./firebase-config";
 // Components
-import Header from "./components/Header";
+import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import User from "./components/User";
 import About from "./components/About";
@@ -19,6 +19,7 @@ import Dashboard from "./components/Dashboard";
 import Collection from "./components/Collection";
 import CreateNew from "./components/CreateNew";
 import Edit from "./components/Edit";
+import Footer from "./components/Footer";
 import FOF from "./components/FOF";
 // Styles
 import { GlobalStyle } from "./GlobalStyle";
@@ -54,7 +55,7 @@ const App = () => {
       <AuthContext.Provider value={{ loggedUser, setLoggedUser }}>
         <JokeContext.Provider value={{ failedJoke, setFailedJoke }}>
           <Router>
-            <Header user={loggedUser} />
+            <Navbar user={loggedUser} />
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
@@ -68,7 +69,7 @@ const App = () => {
               <Route path="/edit" element={<Edit />} />
               <Route path="*" element={<FOF />} />
             </Routes>
-
+            <Footer />
             <GlobalStyle />
           </Router>
         </JokeContext.Provider>

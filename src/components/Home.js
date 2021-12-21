@@ -16,6 +16,27 @@ const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--naughtyBrown);
+
+  @media (max-width: 500px) {
+    background-color: var(--lightGrey);
+  }
+`;
+
+const Header = styled.h2`
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 0.375rem;
+  /* background-color: tomato; */
+  background-color: var(--medGrey);
+  color: var(--white);
+  text-align: center;
+  border: 1px solid olivedrab;
+
+  @media (max-width: 700px) {
+    padding: 1rem;
+    background-color: var(--naughtyBrown);
+  }
 `;
 
 const Buttons = styled.div`
@@ -24,6 +45,10 @@ const Buttons = styled.div`
   display: flex;
   gap: 20px;
   justify-content: flex-end;
+
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 
 const Image = styled.div`
@@ -34,6 +59,10 @@ const Image = styled.div`
   background-size: cover;
   border-radius: 10%;
   margin-top: 2rem;
+
+  @media (max-width: 500px) {
+    display: none;
+  }
 `;
 
 const Home = () => {
@@ -60,40 +89,27 @@ const Home = () => {
   return (
     <>
       <Wrapper>
-        <h3
-          style={{
-            backgroundColor: "tomato",
-            color: "white",
-            textAlign: "center",
-            border: "1px solid olivedrab",
-          }}
-        >
+        <Header>
           {user.displayName
             ? `Welcome ${user.displayName}`
-            : "Home is where everything begins."}
-        </h3>
+            : "Home is where everything begins"}
+        </Header>
         <Image />
         {user.email ? (
-          <div
-            style={{
-              display: "flex",
-              width: "100%",
-              justifyContent: "space-around",
-            }}
-          >
+          <Buttons>
             <Button
-              text={"Check out some jokes"}
+              text={"Quick jokes"}
               callback={() => navigate("/jokeboard")}
             />
             <Button
               text={"Go to personal space"}
               callback={() => navigate("/user")}
             />
-          </div>
+          </Buttons>
         ) : (
           <Buttons>
             <Button
-              text={"Check out some jokes"}
+              text={"Quick jokes"}
               callback={() => navigate("/jokeboard")}
             />
             <Button
