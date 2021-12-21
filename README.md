@@ -1,13 +1,12 @@
-DISCLAIMER
+##Custom Joke Project
+This project is for my course ReactJS at SoftUni and it is with educational purposes only.
+The backend is from Firebase and the styling is with styled-components.
 
-This is a private project with educational purposes only.
+##How to use
+For not register user there are several accessible pages: Home, About, Login, Register and the Dashboard for quick jokes. In addition, the registered user can access the database to store or create own jokes, delete or edit existing ones.
 
-While the author regret any possible inconvenience this project may cause readers,
-
-he has absolutely no responsibility for any of the used materials,
-
-which are all from public APIs.
-
-The images are from https://unsplash.com
-
-The jokes are from https://v2.jokeapi.dev
+Already registered users:
+test@abv.bg
+password: asdasd
+ivanov@abv.bg
+password: dsadsa
