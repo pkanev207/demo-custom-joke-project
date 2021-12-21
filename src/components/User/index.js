@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-// Context
-import { AuthContext } from "../../contexts/AuthContext";
 // Routing
 import { useNavigate } from "react-router-dom";
+// Context
+import { AuthContext } from "../../contexts/AuthContext";
 // Firebase
 import { signOut, deleteUser } from "@firebase/auth";
 import { auth } from "../../firebase-config";

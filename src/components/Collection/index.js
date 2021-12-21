@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
+// Routing
+import { useNavigate } from "react-router-dom";
 // Context
 import { AuthContext } from "../../contexts/AuthContext";
 import { JokeContext } from "../../contexts/JokeContext";
-// Routing
-import { useNavigate } from "react-router-dom";
 // Firebase
 import { collection, getDocs, deleteDoc, doc } from "@firebase/firestore";
 import { db } from "../../firebase-config";

@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-// Context
-import { AuthContext } from "../../contexts/AuthContext";
 // Routing
 import { useNavigate } from "react-router-dom";
+// Context
+import { AuthContext } from "../../contexts/AuthContext";
 // Firebase
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";

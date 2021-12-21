@@ -1,13 +1,11 @@
 import React from "react";
 // Routing
 import { useNavigate } from "react-router-dom";
-// Hooks
-// import { useState } from "react";
-import { useForm } from "react-hook-form";
 // Firebase
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "../../firebase-config";
 // Validators
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 // Styles
@@ -60,7 +58,8 @@ function Register() {
           .then(() => {
             // Profile updated!
             navigate("/");
-          }).catch((err) => {
+          })
+          .catch((err) => {
             // An error occurred
             console.log(err);
           });
@@ -83,8 +82,8 @@ function Register() {
             name="firstName"
             placeholder="First Name..."
             {...register("firstName")}
-          // ref={register}
-          // ref={register("firstName")}
+            // ref={register}
+            // ref={register("firstName")}
           />
           <p>{errors.firstName?.message}</p>
           <input

@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-// Context
-import { JokeContext } from "../../contexts/JokeContext";
 // Routing
 import { useNavigate } from "react-router-dom";
+// Context
+import { JokeContext } from "../../contexts/JokeContext";
 // Firebase
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase-config";

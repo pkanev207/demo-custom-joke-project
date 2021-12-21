@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-// Context
-import { AuthContext } from "../../contexts/AuthContext";
 // Routing
 import { useNavigate } from "react-router-dom";
+// Context
+import { AuthContext } from "../../contexts/AuthContext";
 // Firebase
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../firebase-config";
@@ -25,6 +25,8 @@ import {
   ErrorMessage,
 } from "./CreateNew.styles";
 
+import isAuth from "../../hoc/isAuth";
+
 const schema = yup.object().shape({
   setup: yup.string().required("The joke must have setup!"),
   delivery: yup.string(),
@@ -45,21 +47,9 @@ const CreateNew = () => {
     // console.log(data);
     // here goes the fetch
     const { setup, delivery, category } = data;
-    // console.log(setup, delivery, category);
     const { uid, email, displayName } = loggedUser;
     console.log(uid, email, displayName);
     const jokeId = uuidv4();
-    // console.log(jokeId);
-
-    // try {
-    //   const jokesCollectionRef = await collection(db, "jokes");
-    //   await addDoc(jokesCollectionRef, { ...joke, uid, email });
-    //   console.log(jokesCollectionRef);
-    //   console.log("Document written with ID: ", jokesCollectionRef.id);
-    //   navigate("/collection");
-    // } catch (err) {
-    //   console.error("Error adding document: ", err);
-    // }
 
     if (setup === "" && !setup) {
       // NOT WORKING!!!
@@ -76,7 +66,6 @@ const CreateNew = () => {
           jokeId,
           displayName,
         });
-        // console.log(jokeData);
         console.log("Document written with ID: ", jokeData.id);
         navigate("/collection");
       } catch (e) {
@@ -84,14 +73,6 @@ const CreateNew = () => {
       }
     }
   };
-
-  // const jokesCollectionRef = collection(db, "jokes");
-  // const createJoke = async (joke) => {
-  //   const { uid: creatorId, email } = loggedUser;
-  //   console.log(creatorId, email);
-  //   await addDoc(jokesCollectionRef, { ...joke, creatorId, email });
-  //   navigate("/collection");
-  // };
 
   return (
     <Wrapper>
@@ -132,4 +113,4 @@ const CreateNew = () => {
   );
 };
 
-export default CreateNew;
+export default isAuth(CreateNew);

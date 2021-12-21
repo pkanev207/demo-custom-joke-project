@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-// Context
-import { AuthContext } from "../contexts/AuthContext";
+import React, { useState, useEffect } from "react";
 // Routing
 import { useNavigate } from "react-router-dom";
 // Firebase
@@ -11,7 +9,7 @@ import Button from "./Button";
 // Styles
 import styled from "styled-components/macro";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -23,11 +21,10 @@ const Wrapper = styled.div`
   }
 `;
 
-const Header = styled.h2`
+export const Header = styled.h2`
   padding: 1rem 3rem;
   border: none;
   border-radius: 0.375rem;
-  /* background-color: tomato; */
   background-color: var(--medGrey);
   color: var(--white);
   text-align: center;
@@ -39,7 +36,7 @@ const Header = styled.h2`
   }
 `;
 
-const Buttons = styled.div`
+export const Buttons = styled.div`
   width: 100%;
   margin: 30px auto;
   display: flex;
@@ -51,7 +48,7 @@ const Buttons = styled.div`
   }
 `;
 
-const Image = styled.div`
+export const Image = styled.div`
   width: 550px;
   height: 300px;
   background: url("https://images.unsplash.com/photo-1543791187-df796fa11835?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1399&q=80")
@@ -67,7 +64,6 @@ const Image = styled.div`
 
 const Home = () => {
   let navigate = useNavigate();
-  const { loggedUser } = useContext(AuthContext);
   const [user, setUser] = useState({});
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -75,11 +71,9 @@ const Home = () => {
         // console.log(currentUser);
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        // ...
         setUser(currentUser);
       } else {
         // User is signed out
-        // ...
         console.log("No user");
         // setUser(null);
       }

@@ -1,6 +1,4 @@
 import React from "react";
-// Firebase
-import { auth } from "../firebase-config";
 // Styles
 import styled from "styled-components/macro";
 
@@ -11,7 +9,7 @@ const Content = styled.section`
   flex-grow: 1;
   flex-direction: column;
   align-items: center;
-  margin: 6rem auto;
+  margin: 5rem auto;
   padding: 0 2rem 2rem;
   color: var(--medGrey);
   border-radius: 0.375rem;
@@ -31,15 +29,16 @@ const Paragraph = styled.div`
 `;
 
 const About = () => {
-  const user = auth.currentUser;
-  console.log(user);
+  // if (Math.random() > 0.7) {
+  //   throw new Error("Something went wrong!");
+  // }
 
   return (
     <Content>
       <Header>DISCLAIMER</Header>
       <Paragraph>
         This is a private project with educational purposes only. While the
-        author regret any possible inconvenience this project may cause readers,
+        author deeply regret any possible inconvenience this project may cause readers,
         he has absolutely no responsibility for any of the used materials, which
         are all from public APIs.
       </Paragraph>
