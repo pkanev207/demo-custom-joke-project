@@ -11,6 +11,8 @@ import { db } from "../../firebase-config";
 import Joke from "../Joke";
 import Button from "../Button";
 import Spinner from "../Spinner";
+// Styles
+import { Wrapper } from "./Collection.styles";
 // import { v4 as uuidv4 } from "uuid";
 
 const Collection = () => {
@@ -42,23 +44,16 @@ const Collection = () => {
   };
 
   const deleteJoke = async (data) => {
-    console.log(data);
-    if (window.confirm("You should think twice!")) {
-      await deleteDoc(doc(db, "jokes", data.id));
-      window.location.reload();
-    }
+    // console.log(data);
+    setLoading(true);
+    await deleteDoc(doc(db, "jokes", data.id));
+    loading && <Spinner />;
+    setLoading(false);
+    navigate("/dashboard");
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        alignItems: "center",
-        gap: "0.5rem",
-      }}
-    >
+    <Wrapper>
       <h3>Here goes your collection!</h3>
       {loading && <Spinner />}
       {jokes
@@ -76,7 +71,7 @@ const Collection = () => {
           );
         })}
       <Button text={"Go, home"} callback={() => navigate("/user")} />
-    </div>
+    </Wrapper>
   );
 };
 

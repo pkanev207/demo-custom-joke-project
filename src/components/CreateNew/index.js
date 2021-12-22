@@ -25,8 +25,6 @@ import {
   ErrorMessage,
 } from "./CreateNew.styles";
 
-import isAuth from "../../hoc/isAuth";
-
 const schema = yup.object().shape({
   setup: yup.string().required("The joke must have setup!"),
   delivery: yup.string(),
@@ -48,10 +46,9 @@ const CreateNew = () => {
     // here goes the fetch
     const { setup, delivery, category } = data;
     const { uid, email, displayName } = loggedUser;
-    console.log(uid, email, displayName);
     const jokeId = uuidv4();
 
-    if (setup === "" && !setup) {
+    if (setup === " " && !setup) {
       // NOT WORKING!!!
       alert("There is no setup for the joke!");
       navigate("/home");
@@ -113,4 +110,4 @@ const CreateNew = () => {
   );
 };
 
-export default isAuth(CreateNew);
+export default CreateNew;

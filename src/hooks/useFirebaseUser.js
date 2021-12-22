@@ -1,56 +1,56 @@
-import { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  signOut,
-} from "firebase/auth";
-import { auth } from "../firebase-config";
+// import { useState } from "react";
+// import {
+//   createUserWithEmailAndPassword,
+//   signInWithEmailAndPassword,
+//   onAuthStateChanged,
+//   signOut,
+// } from "firebase/auth";
+// import { auth } from "../firebase-config";
 
-function useFirebaseUser(email, password) {
-  const [registerEmail, setRegisterEmail] = useState("");
-  const [registerPassword, setRegisterPassword] = useState("");
+// function useFirebaseUser(email, password) {
+//   const [registerEmail, setRegisterEmail] = useState("");
+//   const [registerPassword, setRegisterPassword] = useState("");
 
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+//   const [loginEmail, setLoginEmail] = useState("");
+//   const [loginPassword, setLoginPassword] = useState("");
 
-  const [user, setUser] = useState({});
+//   const [user, setUser] = useState({});
 
-  onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
+//   onAuthStateChanged(auth, (currentUser) => {
+//     setUser(currentUser);
+//   });
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+//   const register = async () => {
+//     try {
+//       const user = await createUserWithEmailAndPassword(
+//         auth,
+//         registerEmail,
+//         registerPassword
+//       );
+//       console.log(user);
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
 
-  const login = async () => {
-    try {
-      const user = await signInWithEmailAndPassword(
-        auth,
-        loginEmail,
-        loginPassword
-      );
-      console.log(user);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+//   const login = async () => {
+//     try {
+//       const user = await signInWithEmailAndPassword(
+//         auth,
+//         loginEmail,
+//         loginPassword
+//       );
+//       console.log(user);
+//     } catch (error) {
+//       console.log(error.message);
+//     }
+//   };
 
-  const logout = async () => {
-    await signOut(auth);
-  };
+//   const logout = async () => {
+//     await signOut(auth);
+//   };
 
-  return { register, login, logout };
-}
+//   return { register, login, logout };
+// }
 
-export default useFirebaseUser;
+// export default useFirebaseUser;

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 // Routing
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 // Context
 import { AuthContext } from "./contexts/AuthContext";
 import { JokeContext } from "./contexts/JokeContext";
@@ -21,7 +26,7 @@ import CreateNew from "./components/CreateNew";
 import Edit from "./components/Edit";
 import Footer from "./components/Footer";
 import CustomErrorBoundary from "./components/CustomErrorBoundary";
-import isAuth from "./hoc/isAuth";
+// import Private from "./hoc/Private";
 import FOF from "./components/FOF";
 // Styles
 import { GlobalStyle } from "./GlobalStyle";
@@ -52,6 +57,10 @@ const App = () => {
   //   });
   // }, []);
 
+  function Private({ children }) {
+    return loggedUser ? children : <Navigate to="/login" />;
+  }
+
   return (
     <div className="App">
       <AuthContext.Provider value={{ loggedUser, setLoggedUser }}>
@@ -62,14 +71,49 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
-                <Route path="/user" element={<User />} />
+                <Route
+                  path="/user"
+                  element={
+                    <Private>
+                      <User />
+                    </Private>
+                  }
+                />
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/jokeboard" element={<JokeBoard />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/collection" element={<Collection />} />
-                <Route path="/create" element={<CreateNew />} />
-                <Route path="/edit" element={<Edit />} />
+                <Route
+                  path="/dashboard"
+                  element={
+                    <Private>
+                      <Dashboard />
+                    </Private>
+                  }
+                />
+                <Route
+                  path="/collection"
+                  element={
+                    <Private>
+                      <Collection />
+                    </Private>
+                  }
+                />
+                <Route
+                  path="/create"
+                  element={
+                    <Private>
+                      <CreateNew />
+                    </Private>
+                  }
+                />
+                <Route
+                  path="/edit"
+                  element={
+                    <Private>
+                      <Edit />
+                    </Private>
+                  }
+                />
                 <Route path="*" element={<FOF />} />
               </Routes>
             </CustomErrorBoundary>

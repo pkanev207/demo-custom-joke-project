@@ -27,11 +27,9 @@ const LogIn = () => {
   let navigate = useNavigate();
 
   const submitFormHandler = (data) => {
-    console.log(data);
+    // console.log(data);
     // here goes the fetch
-
     let { email, password } = data;
-    console.log(email, password);
 
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
@@ -39,7 +37,6 @@ const LogIn = () => {
         const user = userCredential.user;
         console.log(user);
         navigate("/");
-        // ...
       })
       .catch((error) => {
         const errorCode = error.code;

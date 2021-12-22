@@ -9,10 +9,11 @@ let url = "https://v2.jokeapi.dev/joke/Any";
 
 const Wrapper = styled.div`
   width: 90%;
+  /* background-color: var(--lightGrey); */
 `;
 
 const Content = styled.div`
-  width: 100%;
+  /* width: 100%; */
   margin: 2rem;
   padding: 2rem;
   display: flex;
@@ -60,7 +61,6 @@ class JokeBoard extends React.Component {
         }
       })
       .then((result) => {
-        console.log(result);
         const { id, setup, delivery, joke, category } = result;
         const newJoke = { id, setup, delivery, joke, category };
         // loaded, making error be null since in this .then everything is ok

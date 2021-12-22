@@ -34,7 +34,6 @@ const Dashboard = () => {
     joke.email = loggedUser.email;
     console.log(joke);
     await addDoc(collection(db, "jokes"), joke);
-    // window.location.reload();
     navigate("/collection");
   };
 
