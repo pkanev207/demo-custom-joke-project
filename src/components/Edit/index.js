@@ -7,7 +7,7 @@ import { JokeContext } from "../../contexts/JokeContext";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "../../firebase-config";
 // Components
-import Spinner from "../Spinner";
+// import Spinner from "../Spinner";
 // Styles
 import {
   Wrapper,
