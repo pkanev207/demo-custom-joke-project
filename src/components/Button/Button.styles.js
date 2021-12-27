@@ -14,9 +14,9 @@ export const Wrapper = styled.button`
   padding: 6px;
   transition: all 0.3s;
   outline: none;
-  cursor: pointer;
 
   :hover {
+    cursor: pointer;
     opacity: 0.8;
   }
 `;
