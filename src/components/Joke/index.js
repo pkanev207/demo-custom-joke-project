@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 // Styles
 import { Wrapper, Speech, Image, Label } from "./Joke.styles";
 // API
@@ -8,14 +9,18 @@ const Joke = ({ data }) => (
   <Wrapper>
     <Speech>
       <Label>
-        <span>{data?.setup}</span>
+        <span id="setup">{data?.setup}</span>
         <br />
-        <span>{data?.delivery}</span>
-        <span>{data?.joke}</span>
+        <span id="delivery">{data?.delivery}</span>
+        <span data-testid="joke">{data?.joke}</span>
       </Label>
     </Speech>
     <Image src={`https://robohash.org/${data?.id}`} alt={data?.value} />
   </Wrapper>
 );
+
+Joke.propTypes = {
+  data: PropTypes.object,
+};
 
 export default Joke;

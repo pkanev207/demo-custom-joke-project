@@ -31,7 +31,7 @@ const User = () => {
   };
 
   const closeAccount = () => {
-    console.log(auth.currentUser);
+    // console.log(auth.currentUser);
     let user = auth.currentUser;
 
     deleteUser(user)

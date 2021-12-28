@@ -9,7 +9,7 @@ import Button from "./Button";
 // Styles
 import styled from "styled-components/macro";
 
-export const Wrapper = styled.div`
+const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Header = styled.h2`
+const Header = styled.h2`
   padding: 1rem 3rem;
   border: none;
   border-radius: 0.375rem;
@@ -36,7 +36,7 @@ export const Header = styled.h2`
   }
 `;
 
-export const Buttons = styled.div`
+const Buttons = styled.div`
   width: 100%;
   margin: 30px auto;
   display: flex;
@@ -48,7 +48,7 @@ export const Buttons = styled.div`
   }
 `;
 
-export const Image = styled.div`
+const Image = styled.div`
   width: 550px;
   height: 300px;
   background: url("https://images.unsplash.com/photo-1543791187-df796fa11835?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1399&q=80")
